@@ -1,0 +1,71 @@
+name: Daily Content Generation
+
+on:
+  # Run twice daily — morning and evening (UTC)
+  schedule:
+    - cron: "0 8 * * *"   # 8 AM UTC (3–4 AM EST / midnight–1 AM PST)
+    - cron: "0 20 * * *"  # 8 PM UTC (3–4 PM EST / noon–1 PM PST)
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Number of articles to generate"
+        required: false
+        default: "1"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate article(s)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          COUNT="${{ github.event.inputs.count || '1' }}"
+          for i in $(seq 1 $COUNT); do
+            echo "--- Generating article $i of $COUNT ---"
+            npx tsx scripts/generate-article.ts
+            # Small pause between calls to avoid rate limiting
+            if [ $i -lt $COUNT ]; then sleep 3; fi
+          done
+
+      - name: Check for new files
+        id: changes
+        run: |
+          git status --porcelain content/articles/
+          CHANGED=$(git status --porcelain content/articles/ | wc -l | tr -d ' ')
+          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
+
+      - name: Commit and push new articles
+        if: steps.changes.outputs.changed != '0'
+        run: |
+          git config user.name "capitalloss-bot"
+          git config user.email "actions@github.com"
+          git add content/articles/
+          git commit -m "content: add daily article(s) $(date -u '+%Y-%m-%d')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: No new content
+        if: steps.changes.outputs.changed == '0'
+        run: echo "No new articles generated — nothing to commit."

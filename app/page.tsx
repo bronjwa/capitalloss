@@ -1,65 +1,209 @@
-import Image from "next/image";
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ArticleCard from "@/components/ArticleCard";
+import { getFeaturedArticle, getRecentArticles } from "@/lib/articles";
 
 export default function Home() {
+  const featured = getFeaturedArticle();
+  const recent = getRecentArticles(8, featured?.slug);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <Header />
+      <main style={{ flex: 1, paddingTop: "56px" }}>
+        {/* Hero / Manifesto */}
+        <section
+          style={{
+            padding: "clamp(5rem, 14vw, 10rem) 2rem clamp(4rem, 10vw, 7rem)",
+            maxWidth: "1200px",
+            margin: "0 auto",
+            borderBottom: "1px solid #1a1a1a",
+          }}
+        >
+          <div style={{ maxWidth: "800px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-inter), system-ui, sans-serif",
+                fontSize: "0.7rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "#b03030",
+                marginBottom: "2rem",
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              An editorial archive
+            </p>
+            <h1
+              style={{
+                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontSize: "clamp(3.2rem, 9vw, 7.5rem)",
+                fontWeight: 400,
+                lineHeight: 0.92,
+                letterSpacing: "-0.03em",
+                color: "#e8e2d6",
+                marginBottom: "2.5rem",
+              }}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+              The cost
+              <br />
+              of ambition.
+            </h1>
+            <p
+              style={{
+                fontFamily: "var(--font-inter), system-ui, sans-serif",
+                fontSize: "1.0625rem",
+                lineHeight: 1.7,
+                color: "#6a6460",
+                maxWidth: "520px",
+              }}
+            >
+              People share wins publicly. The most valuable lessons usually
+              come from mistakes, wrong turns, and things falling apart.
+              Capitalloss documents those moments.
+            </p>
+          </div>
+        </section>
+
+        {/* Featured Article */}
+        {featured && (
+          <section
+            style={{
+              maxWidth: "1200px",
+              margin: "0 auto",
+              padding: "0 2rem",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
+                alignItems: "center",
+                padding: "2.5rem 0 0",
+                marginBottom: "0",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "0.68rem",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#3a3734",
+                  fontFamily: "var(--font-inter), system-ui, sans-serif",
+                }}
+              >
+                Featured
+              </span>
+              <span
+                style={{
+                  flex: 1,
+                  height: "1px",
+                  backgroundColor: "#1a1a1a",
+                }}
+              />
+            </div>
+            <ArticleCard article={featured} variant="large" />
+          </section>
+        )}
+
+        {/* Recent Articles */}
+        {recent.length > 0 && (
+          <section
+            style={{
+              maxWidth: "1200px",
+              margin: "0 auto",
+              padding: "0 2rem",
+            }}
           >
-            Documentation
-          </a>
-        </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
+                alignItems: "center",
+                padding: "3rem 0 0",
+                marginBottom: "0",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "0.68rem",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#3a3734",
+                  fontFamily: "var(--font-inter), system-ui, sans-serif",
+                }}
+              >
+                Recent
+              </span>
+              <span
+                style={{
+                  flex: 1,
+                  height: "1px",
+                  backgroundColor: "#1a1a1a",
+                }}
+              />
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))",
+                gap: "0 3rem",
+              }}
+            >
+              {recent.map((article) => (
+                <ArticleCard key={article.slug} article={article} />
+              ))}
+            </div>
+
+            <div
+              style={{
+                padding: "3rem 0 4rem",
+                borderTop: "1px solid #1a1a1a",
+                marginTop: "0",
+              }}
+            >
+              <Link
+                href="/archive"
+                className="link-underline-brighten"
+                style={{
+                  fontFamily: "var(--font-inter), system-ui, sans-serif",
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                }}
+              >
+                View all entries →
+              </Link>
+            </div>
+          </section>
+        )}
+
+        {/* Empty state */}
+        {!featured && recent.length === 0 && (
+          <section
+            style={{
+              maxWidth: "1200px",
+              margin: "0 auto",
+              padding: "5rem 2rem",
+              borderTop: "1px solid #1a1a1a",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-cormorant), Georgia, serif",
+                fontSize: "1.5rem",
+                color: "#3a3734",
+                fontStyle: "italic",
+              }}
+            >
+              The archive is being assembled.
+            </p>
+          </section>
+        )}
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
