@@ -6,113 +6,107 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      style={{
-        borderTop: "1px solid #1a1a1a",
-        marginTop: "auto",
-        padding: "3rem 2rem",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1.5rem",
-        }}
-      >
+    <footer style={{ borderTop: "1px solid #2a2a2a", padding: "3.5rem 2rem 2.5rem" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+
         {/* Top row */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            flexWrap: "wrap",
-            gap: "1.5rem",
-          }}
-        >
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          flexWrap: "wrap",
+          gap: "2rem",
+          marginBottom: "2.5rem",
+        }}>
           <div>
-            <span
-              style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
-                fontSize: "1.05rem",
-                fontWeight: 400,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "#e8e2d6",
-              }}
-            >
+            <Link href="/" style={{
+              fontFamily: "var(--font-cormorant), Georgia, serif",
+              fontSize: "1.1rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "#ede8df",
+              display: "block",
+              marginBottom: "0.75rem",
+            }}>
               Capitalloss
-            </span>
-            <p
-              style={{
-                marginTop: "0.5rem",
-                fontSize: "0.78rem",
-                color: "#4a4744",
-                letterSpacing: "0.02em",
-                maxWidth: "320px",
-                lineHeight: 1.6,
-              }}
-            >
-              An editorial archive of mistakes, losses, and lessons from
-              ambitious lives.
+            </Link>
+            <p style={{
+              fontSize: "0.82rem",
+              color: "#6e6a66",
+              lineHeight: 1.6,
+              maxWidth: "300px",
+            }}>
+              An editorial archive of mistakes, losses, and lessons from ambitious lives.
             </p>
           </div>
 
-          <nav
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              { href: "/archive", label: "Archive" },
-              { href: "/about", label: "About" },
-            ].map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                style={{
-                  fontSize: "0.72rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "#4a4744",
-                  textDecoration: "none",
+          {/* Nav columns */}
+          <div style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
+            <div>
+              <p style={{ fontSize: "0.67rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4a4744", marginBottom: "1rem" }}>
+                Read
+              </p>
+              {[
+                { href: "/", label: "Home" },
+                { href: "/archive", label: "Archive" },
+                { href: "/about", label: "About" },
+              ].map(({ href, label }) => (
+                <Link key={href} href={href} style={{
+                  display: "block",
+                  fontSize: "0.82rem",
+                  color: "#6e6a66",
+                  marginBottom: "0.6rem",
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  ((e.target as HTMLElement).style.color = "#9a9490")
-                }
-                onMouseLeave={(e) =>
-                  ((e.target as HTMLElement).style.color = "#4a4744")
-                }
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#c8c2b8")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#6e6a66")}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            <div>
+              <p style={{ fontSize: "0.67rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4a4744", marginBottom: "1rem" }}>
+                Legal
+              </p>
+              {[
+                { href: "/legal/disclaimer", label: "Disclaimer" },
+                { href: "/legal/privacy", label: "Privacy Policy" },
+                { href: "/legal/terms", label: "Terms of Use" },
+              ].map(({ href, label }) => (
+                <Link key={href} href={href} style={{
+                  display: "block",
+                  fontSize: "0.82rem",
+                  color: "#6e6a66",
+                  marginBottom: "0.6rem",
+                  transition: "color 0.2s",
+                }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#c8c2b8")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "#6e6a66")}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Bottom row */}
-        <div
-          style={{
-            paddingTop: "1.5rem",
-            borderTop: "1px solid #1a1a1a",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "0.75rem",
-          }}
-        >
-          <span style={{ fontSize: "0.72rem", color: "#2e2e2e", letterSpacing: "0.05em" }}>
-            © {year} Capitalloss
+        <div style={{
+          paddingTop: "1.5rem",
+          borderTop: "1px solid #1e1e1e",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "0.75rem",
+        }}>
+          <span style={{ fontSize: "0.72rem", color: "#3a3734" }}>
+            © {year} Capitalloss. All rights reserved.
           </span>
-          <span style={{ fontSize: "0.72rem", color: "#2e2e2e", letterSpacing: "0.05em" }}>
-            @capitalloss
+          <span style={{ fontSize: "0.72rem", color: "#3a3734" }}>
+            For editorial and informational purposes only.
           </span>
         </div>
       </div>

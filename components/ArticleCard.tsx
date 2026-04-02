@@ -6,102 +6,84 @@ import { format } from "date-fns";
 
 type Props = {
   article: ArticleMeta;
-  variant?: "default" | "compact" | "large";
+  variant?: "default" | "compact" | "large" | "featured";
 };
 
 export default function ArticleCard({ article, variant = "default" }: Props) {
   const { slug, frontmatter, readingTime } = article;
   const date = format(new Date(frontmatter.date), "MMM d, yyyy");
 
-  if (variant === "large") {
+  if (variant === "featured") {
     return (
-      <Link
-        href={`/articles/${slug}`}
-        style={{ display: "block", textDecoration: "none" }}
-      >
-        <article
-          style={{
-            borderTop: "1px solid #1a1a1a",
-            padding: "3rem 0",
-            cursor: "pointer",
-            transition: "opacity 0.2s",
-          }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.75")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-        >
-          {/* Category + Date */}
-          <div
-            style={{
-              display: "flex",
-              gap: "1rem",
-              alignItems: "center",
-              marginBottom: "1.25rem",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "0.68rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#b03030",
-                fontFamily: "var(--font-inter), system-ui, sans-serif",
-              }}
-            >
-              {frontmatter.category}
-            </span>
-            <span style={{ fontSize: "0.68rem", color: "#3a3734" }}>—</span>
-            <span
-              style={{
-                fontSize: "0.68rem",
-                letterSpacing: "0.06em",
-                color: "#4a4744",
-                fontFamily: "var(--font-inter), system-ui, sans-serif",
-              }}
-            >
-              {date}
-            </span>
+      <Link href={`/articles/${slug}`} style={{ display: "block" }}>
+        <article style={{ padding: "2.5rem 0 3rem", cursor: "pointer" }}>
+          <div style={{ display: "flex", gap: "1rem", alignItems: "center", marginBottom: "1.5rem" }}>
+            <span className="category-tag">{frontmatter.category}</span>
+            <span style={{ color: "#3a3734", fontSize: "0.7rem" }}>—</span>
+            <span className="meta-text">{date}</span>
           </div>
-
-          {/* Title */}
-          <h2
-            style={{
-              fontFamily: "var(--font-cormorant), Georgia, serif",
-              fontSize: "clamp(1.8rem, 3.5vw, 3rem)",
-              fontWeight: 400,
-              color: "#e8e2d6",
-              lineHeight: 1.05,
-              letterSpacing: "-0.025em",
-              marginBottom: "1rem",
-            }}
-          >
+          <h2 style={{
+            fontFamily: "var(--font-cormorant), Georgia, serif",
+            fontSize: "clamp(2.2rem, 5vw, 4rem)",
+            fontWeight: 400,
+            color: "#ede8df",
+            lineHeight: 1.02,
+            letterSpacing: "-0.025em",
+            marginBottom: "1.25rem",
+          }}>
             {frontmatter.title}
           </h2>
-
-          {/* Excerpt */}
-          <p
-            style={{
-              fontSize: "1rem",
-              lineHeight: 1.65,
-              color: "#6a6460",
-              maxWidth: "620px",
-              marginBottom: "1.25rem",
-            }}
-          >
+          <p style={{
+            fontSize: "1rem",
+            lineHeight: 1.7,
+            color: "#9c9690",
+            maxWidth: "580px",
+            marginBottom: "1.5rem",
+          }}>
             {frontmatter.excerpt}
           </p>
-
-          {/* Read time */}
-          <span
-            style={{
-              fontSize: "0.7rem",
-              letterSpacing: "0.08em",
-              color: "#3a3734",
-              textTransform: "uppercase",
-              fontFamily: "var(--font-inter), system-ui, sans-serif",
-            }}
-          >
-            {readingTime}
+          <span style={{
+            fontSize: "0.7rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#c0392b",
+            fontFamily: "var(--font-inter), system-ui, sans-serif",
+          }}>
+            Read →
           </span>
+        </article>
+      </Link>
+    );
+  }
+
+  if (variant === "large") {
+    return (
+      <Link href={`/articles/${slug}`} style={{ display: "block" }}>
+        <article
+          style={{ padding: "2.5rem 0", cursor: "pointer", transition: "opacity 0.2s" }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.8")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+        >
+          <div style={{ display: "flex", gap: "1rem", alignItems: "center", marginBottom: "1.25rem" }}>
+            <span className="category-tag">{frontmatter.category}</span>
+            <span style={{ color: "#333", fontSize: "0.7rem" }}>—</span>
+            <span className="meta-text">{date}</span>
+          </div>
+          <h2 style={{
+            fontFamily: "var(--font-cormorant), Georgia, serif",
+            fontSize: "clamp(1.8rem, 3.5vw, 3rem)",
+            fontWeight: 400,
+            color: "#ede8df",
+            lineHeight: 1.05,
+            letterSpacing: "-0.025em",
+            marginBottom: "1rem",
+          }}>
+            {frontmatter.title}
+          </h2>
+          <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: "#9c9690", maxWidth: "600px", marginBottom: "1rem" }}>
+            {frontmatter.excerpt}
+          </p>
+          <span className="meta-text">{readingTime}</span>
         </article>
       </Link>
     );
@@ -109,17 +91,14 @@ export default function ArticleCard({ article, variant = "default" }: Props) {
 
   if (variant === "compact") {
     return (
-      <Link
-        href={`/articles/${slug}`}
-        style={{ display: "block", textDecoration: "none" }}
-      >
+      <Link href={`/articles/${slug}`} style={{ display: "block" }}>
         <article
           style={{
             padding: "1.25rem 0",
-            borderTop: "1px solid #1a1a1a",
+            borderTop: "1px solid #2a2a2a",
             display: "flex",
             justifyContent: "space-between",
-            gap: "1rem",
+            gap: "1.5rem",
             alignItems: "flex-start",
             cursor: "pointer",
             transition: "opacity 0.2s",
@@ -128,124 +107,58 @@ export default function ArticleCard({ article, variant = "default" }: Props) {
           onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
         >
           <div style={{ flex: 1 }}>
-            <h3
-              style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
-                fontSize: "1.2rem",
-                fontWeight: 400,
-                color: "#e8e2d6",
-                lineHeight: 1.2,
-                letterSpacing: "-0.015em",
-                marginBottom: "0.35rem",
-              }}
-            >
+            <h3 style={{
+              fontFamily: "var(--font-cormorant), Georgia, serif",
+              fontSize: "1.2rem",
+              fontWeight: 400,
+              color: "#ede8df",
+              lineHeight: 1.2,
+              letterSpacing: "-0.015em",
+              marginBottom: "0.4rem",
+            }}>
               {frontmatter.title}
             </h3>
-            <span
-              style={{
-                fontSize: "0.67rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "#b03030",
-              }}
-            >
-              {frontmatter.category}
-            </span>
+            <span className="category-tag">{frontmatter.category}</span>
           </div>
-          <span
-            style={{
-              fontSize: "0.68rem",
-              color: "#3a3734",
-              letterSpacing: "0.04em",
-              whiteSpace: "nowrap",
-              paddingTop: "0.1rem",
-              fontFamily: "var(--font-inter), system-ui, sans-serif",
-            }}
-          >
-            {date}
-          </span>
+          <span className="meta-text" style={{ whiteSpace: "nowrap", paddingTop: "0.1rem" }}>{date}</span>
         </article>
       </Link>
     );
   }
 
-  // Default
+  // Default card
   return (
-    <Link
-      href={`/articles/${slug}`}
-      style={{ display: "block", textDecoration: "none" }}
-    >
+    <Link href={`/articles/${slug}`} style={{ display: "block" }}>
       <article
         style={{
-          borderTop: "1px solid #1a1a1a",
-          padding: "2rem 0",
+          borderTop: "1px solid #2a2a2a",
+          padding: "1.75rem 0",
           cursor: "pointer",
           transition: "opacity 0.2s",
         }}
         onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.75")}
         onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
       >
-        <div style={{ display: "flex", gap: "0.75rem", marginBottom: "0.9rem", alignItems: "center" }}>
-          <span
-            style={{
-              fontSize: "0.67rem",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "#b03030",
-              fontFamily: "var(--font-inter), system-ui, sans-serif",
-            }}
-          >
-            {frontmatter.category}
-          </span>
-          <span style={{ fontSize: "0.67rem", color: "#2e2e2e" }}>—</span>
-          <span
-            style={{
-              fontSize: "0.67rem",
-              color: "#4a4744",
-              letterSpacing: "0.04em",
-              fontFamily: "var(--font-inter), system-ui, sans-serif",
-            }}
-          >
-            {date}
-          </span>
+        <div style={{ display: "flex", gap: "0.75rem", marginBottom: "0.85rem", alignItems: "center" }}>
+          <span className="category-tag">{frontmatter.category}</span>
+          <span style={{ fontSize: "0.65rem", color: "#333" }}>—</span>
+          <span className="meta-text">{date}</span>
         </div>
-
-        <h3
-          style={{
-            fontFamily: "var(--font-cormorant), Georgia, serif",
-            fontSize: "clamp(1.3rem, 2vw, 1.75rem)",
-            fontWeight: 400,
-            color: "#e8e2d6",
-            lineHeight: 1.15,
-            letterSpacing: "-0.018em",
-            marginBottom: "0.7rem",
-          }}
-        >
+        <h3 style={{
+          fontFamily: "var(--font-cormorant), Georgia, serif",
+          fontSize: "clamp(1.2rem, 2vw, 1.6rem)",
+          fontWeight: 400,
+          color: "#ede8df",
+          lineHeight: 1.18,
+          letterSpacing: "-0.018em",
+          marginBottom: "0.65rem",
+        }}>
           {frontmatter.title}
         </h3>
-
-        <p
-          style={{
-            fontSize: "0.9rem",
-            lineHeight: 1.6,
-            color: "#5a5754",
-            marginBottom: "0.9rem",
-          }}
-        >
+        <p style={{ fontSize: "0.875rem", lineHeight: 1.65, color: "#9c9690", marginBottom: "0.85rem" }}>
           {frontmatter.excerpt}
         </p>
-
-        <span
-          style={{
-            fontSize: "0.67rem",
-            letterSpacing: "0.08em",
-            color: "#3a3734",
-            textTransform: "uppercase",
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-          }}
-        >
-          {readingTime}
-        </span>
+        <span className="meta-text">{readingTime}</span>
       </article>
     </Link>
   );

@@ -1,15 +1,15 @@
 name: Daily Content Generation
 
 on:
-  # Run twice daily — morning and evening (UTC)
+  # Once daily at 10 AM UTC (6 AM EST / 3 AM PST)
+  # Consistent morning publishing maximizes same-day indexing and social sharing
   schedule:
-    - cron: "0 8 * * *"   # 8 AM UTC (3–4 AM EST / midnight–1 AM PST)
-    - cron: "0 20 * * *"  # 8 PM UTC (3–4 PM EST / noon–1 PM PST)
-  # Allow manual trigger from GitHub Actions UI
+    - cron: "0 10 * * *"
+  # Manual trigger — set count to publish multiple articles at once
   workflow_dispatch:
     inputs:
       count:
-        description: "Number of articles to generate"
+        description: "Number of articles to generate (default: 1)"
         required: false
         default: "1"
 

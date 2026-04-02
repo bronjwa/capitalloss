@@ -1,45 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand colors */
   --color-bg: #0a0a0a;
-  --color-surface: #111111;
-  --color-surface-2: #1a1a1a;
-  --color-border: #222222;
-  --color-border-light: #2e2e2e;
-  --color-ink: #e8e2d6;
-  --color-ink-dim: #c0bab0;
-  --color-ink-secondary: #9a9490;
-  --color-ink-muted: #4a4744;
-  --color-accent: #b03030;
-  --color-accent-dim: #7a2020;
-
-  /* Fonts */
+  --color-surface: #141414;
+  --color-border: #2a2a2a;
+  --color-border-subtle: #1e1e1e;
+  --color-ink: #ede8df;
+  --color-ink-dim: #c8c2b8;
+  --color-ink-secondary: #9c9690;
+  --color-ink-muted: #6e6a66;
+  --color-accent: #c0392b;
   --font-serif: var(--font-cormorant), Georgia, serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
-
-  /* Animations */
-  --animate-fade-in: fadeIn 0.6s ease-out forwards;
-  --animate-slide-up: slideUp 0.5s ease-out forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   background-color: #0a0a0a;
-  color: #e8e2d6;
+  color: #ede8df;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -54,38 +33,35 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 400;
-  color: #e8e2d6;
+  color: #ede8df;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+a { color: inherit; text-decoration: none; }
 
-/* Thin scrollbar */
-::-webkit-scrollbar { width: 4px; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: #2e2e2e; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
 
 /* Selection */
-::selection { background-color: #b03030; color: #e8e2d6; }
+::selection { background-color: #c0392b; color: #ede8df; }
 
-/* Article prose styles */
+/* ─── Article prose ─────────────────────────────────────────────────────── */
 .prose-cl {
   font-family: var(--font-inter), system-ui, sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.78;
-  color: #c0bab0;
+  font-size: 1.075rem;
+  line-height: 1.82;
+  color: #c8c2b8;
   max-width: 680px;
 }
 
 .prose-cl h2 {
   font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 400;
-  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-  color: #e8e2d6;
-  margin-top: 2.5em;
-  margin-bottom: 0.6em;
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  color: #ede8df;
+  margin-top: 2.75em;
+  margin-bottom: 0.65em;
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
@@ -94,101 +70,123 @@ a {
   font-family: var(--font-cormorant), Georgia, serif;
   font-weight: 400;
   font-size: 1.5rem;
-  color: #e8e2d6;
-  margin-top: 2em;
+  color: #ede8df;
+  margin-top: 2.2em;
   margin-bottom: 0.5em;
   letter-spacing: -0.015em;
   line-height: 1.2;
 }
 
 .prose-cl p {
-  margin-bottom: 1.6em;
-  color: #c0bab0;
+  margin-bottom: 1.65em;
+  color: #c8c2b8;
 }
 
 .prose-cl p:first-of-type::first-letter {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: 4.2em;
+  font-size: 4em;
   line-height: 0.82;
   float: left;
   margin-right: 0.08em;
-  margin-top: 0.06em;
-  color: #e8e2d6;
+  margin-top: 0.08em;
+  color: #ede8df;
   font-weight: 400;
 }
 
 .prose-cl blockquote {
-  border-left: 2px solid #b03030;
-  padding: 0.25rem 0 0.25rem 1.5rem;
-  margin: 2.5rem 0;
+  border-left: 2px solid #c0392b;
+  padding: 0.4rem 0 0.4rem 1.75rem;
+  margin: 2.75rem 0;
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   line-height: 1.45;
-  color: #e8e2d6;
+  color: #ede8df;
   font-style: italic;
   letter-spacing: -0.01em;
 }
 
-.prose-cl blockquote p {
-  margin-bottom: 0;
-  color: #e8e2d6;
-}
-
-.prose-cl blockquote p::first-letter {
-  all: unset;
-}
-
-.prose-cl strong { color: #e8e2d6; font-weight: 500; }
-
-.prose-cl em { font-style: italic; color: #d0cac0; }
+.prose-cl blockquote p { margin-bottom: 0; color: #ede8df; }
+.prose-cl blockquote p::first-letter { all: unset; }
+.prose-cl strong { color: #ede8df; font-weight: 500; }
+.prose-cl em { font-style: italic; color: #d8d2c8; }
 
 .prose-cl hr {
   border: none;
-  border-top: 1px solid #222222;
-  margin: 3rem 0;
+  border-top: 1px solid #2a2a2a;
+  margin: 3.5rem 0;
 }
 
 .prose-cl ul, .prose-cl ol {
   padding-left: 1.5rem;
   margin-bottom: 1.5em;
-  color: #c0bab0;
+  color: #c8c2b8;
 }
 
 .prose-cl li { margin-bottom: 0.5em; }
 
 .prose-cl a {
-  color: #e8e2d6;
+  color: #ede8df;
   text-decoration: underline;
-  text-decoration-color: #4a4744;
+  text-decoration-color: #555;
   text-underline-offset: 3px;
   transition: text-decoration-color 0.2s;
 }
+.prose-cl a:hover { text-decoration-color: #c0392b; }
 
-.prose-cl a:hover { text-decoration-color: #b03030; }
+/* Sources / citations section */
+.prose-cl .sources {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #2a2a2a;
+  font-size: 0.85rem;
+  color: #6e6a66;
+  line-height: 1.6;
+}
 
-/* Reusable hover utilities for server-rendered links */
-.link-dim {
-  transition: opacity 0.2s;
-}
-.link-dim:hover {
-  opacity: 0.7;
-}
+/* ─── Hover utilities ────────────────────────────────────────────────────── */
+.link-dim { transition: opacity 0.2s; }
+.link-dim:hover { opacity: 0.65; }
 
-.link-brighten {
-  transition: color 0.2s;
-  color: #4a4744;
-}
-.link-brighten:hover {
-  color: #e8e2d6;
-}
+.link-brighten { transition: color 0.2s; color: #6e6a66; }
+.link-brighten:hover { color: #ede8df; }
 
 .link-underline-brighten {
   transition: color 0.2s, border-color 0.2s;
-  color: #4a4744;
-  border-bottom: 1px solid #2e2e2e;
+  color: #6e6a66;
+  border-bottom: 1px solid #333;
   padding-bottom: 2px;
 }
-.link-underline-brighten:hover {
-  color: #e8e2d6;
-  border-color: #e8e2d6;
+.link-underline-brighten:hover { color: #ede8df; border-color: #ede8df; }
+
+/* ─── Section label ──────────────────────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6e6a66;
+}
+
+/* ─── Divider line ───────────────────────────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #2a2a2a;
+}
+
+/* ─── Category pill ──────────────────────────────────────────────────────── */
+.category-tag {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #c0392b;
+}
+
+/* ─── Meta text (dates, read time) ───────────────────────────────────────── */
+.meta-text {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: #6e6a66;
 }
