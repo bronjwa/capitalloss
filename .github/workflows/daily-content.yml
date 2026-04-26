@@ -1,10 +1,9 @@
 name: Daily Content Generation
 
 on:
-  # Once daily at 10 AM UTC (6 AM EST / 3 AM PST)
-  # Consistent morning publishing maximizes same-day indexing and social sharing
-  schedule:
-    - cron: "0 10 * * *"
+  # PAUSED — uncomment schedule to re-enable daily runs
+  # schedule:
+  #   - cron: "0 10 * * *"
   # Manual trigger — set count to publish multiple articles at once
   workflow_dispatch:
     inputs:
